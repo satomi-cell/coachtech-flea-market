@@ -8,7 +8,7 @@
         @csrf
 
         <div class="form-group">
-            <label>メールアドレス</label>
+            <label>メールアドレスa</label>
             <input type="email" name="email" value="{{ old('email') }}">
             
             @error('email')
