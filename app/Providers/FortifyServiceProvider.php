@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\VerifyEmailResponse;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -39,11 +40,20 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
+        Fortify::verifyEmailView(function () {
+        return view('auth.verify');
+        });
 
+        $this->app->instance(VerifyEmailResponse::class, new class implements VerifyEmailResponse {
+           public function toResponse($request)
+            {
+              return redirect('/mypage/profile');
+            }
+        });
+        
         Fortify::loginView(function () {
         return view('auth.login');
         });
-
         Fortify::registerView(function () {
         return view('auth.register');
         });

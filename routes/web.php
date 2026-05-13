@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'show'])
@@ -38,4 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage/profile', function () {
         return view('mypage.profile');
     });
+});
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mypage/profile', [ProfileController::class, 'edit']);
 });
