@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            <label>パスワード</label>
+            <label>パスワードa</label>
             <input type="password" name="password">
         
             @error('password')
