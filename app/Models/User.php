@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use App\Models\Item;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -44,4 +45,17 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    // 出品した商品
+   public function items()
+    {
+       return $this->hasMany(Item::class);
+    }
+
+    // 購入した商品
+   public function purchases()
+    {
+       return $this->belongsToMany(Item::class, 'purchases');
+    }
+
 }

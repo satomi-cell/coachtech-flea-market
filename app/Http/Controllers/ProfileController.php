@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+     public function mypage()
+    {
+        $user = Auth::user();
+
+        // 出品商品
+        $sellItems = $user->items;
+
+        // 購入商品
+        $buyItems = $user->purchases;
+
+        return view('mypage.index', compact('user', 'sellItems', 'buyItems'));
+    }
+
     public function edit()
     {
         $user = Auth::user();
@@ -21,12 +35,13 @@ class ProfileController extends Controller
             'name' => ['required'],
             'postal_code' => ['required'],
             'address' => ['required'],
-            'image' => ['nullable', 'image'],
+            'building' => ['nullable'],
+            'profile_image' => ['nullable', 'image'],
         ]);
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('profile_image')) {
 
-            $path = $request->file('image')->store('profile_images', 'public');
+            $path = $request->file('profile_image')->store('profile_images', 'public');
 
             $user->profile_image = $path;
         }

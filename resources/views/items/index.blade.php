@@ -19,10 +19,16 @@
                 <div class="image">
                     
                     @if ($item->image)
-                      <img src="{{ $item->image }}">
+                    <img src="{{ asset('storage/' . $item->image) }}">
                     @else
                         商品画像
                     @endif
+                   
+                    {{-- Sold表示 --}}
+                    @if ($item->is_sold)
+                        <p class="sold">Sold</p>
+                    @endif
+                    
                 </div>
 
                 <p class="name">{{ $item->name }}</p>

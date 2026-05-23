@@ -4,16 +4,24 @@
 <div class="profile-container">
     <h2 class="profile-title">プロフィール設定</h2>
 
-    <form action="#" method="POST" enctype="multipart/form-data" class="profile-form">
+    <form action="/mypage/profile" method="POST" enctype="multipart/form-data" class="profile-form">
         @csrf
 
         <!-- 画像 -->
         <div class="profile-image-section">
-            <div class="profile-image"></div>
-            <label class="image-button">
-                画像を選択する
-                <input type="file" style="display: none;">
-            </label>
+            @if ($user->profile_image)
+              <img
+                 src="{{ asset('storage/' . $user->profile_image) }}"
+                 class="profile-image"
+              >
+            @else
+               <div class="profile-image"></div>
+            @endif
+
+           <label class="image-button">
+               画像を選択する
+               <input type="file" name="profile_image" style="display: none;">
+           </label>
         </div>
 
         <!-- ユーザー名 -->
@@ -40,7 +48,7 @@
             <input type="text" name="building" class="profile-input" value="{{ old('building', $user->building) }}">
         </div>
 
-        <button class="profile-button">更新する</button>
+        <button type="submit" class="profile-button">更新する</button>
     </form>
 </div>
 @endsection

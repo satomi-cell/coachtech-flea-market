@@ -2,15 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        return view('mypage.index', compact('user'));
+        $page = $request->page;
+        
+        // 出品した商品
+        $sellItems = Item::where('user_id', $user->id)->get();
+
+        // 購入した商品
+        $buyItems = Purchase::where('user_id', $user->id)
+             ->with('item')
+             ->get();
+        return view('mypage.index', compact(
+            'user',
+            'page',
+            'sellItems',
+            'buyItems'
+            ));
     }
 }

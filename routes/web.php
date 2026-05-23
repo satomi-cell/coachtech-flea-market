@@ -37,14 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
 });
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/mypage/profile', function () {
-        return view('mypage.profile');
-    });
-});
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/mypage/profile', [ProfileController::class, 'edit']);
-     Route::post('/mypage/profile', [ProfileController::class, 'update']);
-});
-Route::middleware('auth')->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);
+    Route::get('/mypage/profile', [ProfileController::class, 'edit']);
+    Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });

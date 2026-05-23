@@ -13,13 +13,32 @@ class ItemController extends Controller
     $tab = $request->query('tab');
 
     if ($tab === 'mylist') {
-        // とりあえずダミー（あとで本実装）
-        $items = collect(); // 今は空でOK
-    } else {
-        $items = Item::all();
-    }
+      
+        // 未ログインなら空
+        if (!Auth::check()) {
+           
+            $items = collect();
+        
+       } else {
+      
+        // 仮（あとで likes 実装時に変更）
+            $items = collect();
+       }
 
-    return view('items.index', compact('items', 'tab'));
+    } else {
+
+        $items = Item::query()
+
+            // 自分の商品を除外
+            ->when(Auth::check(), function ($query) {
+                $query->where('user_id', '!=', Auth::id());
+            })
+
+            ->latest()
+            ->get();
+    }
+   
+     return view('items.index', compact('items', 'tab'));
  }
 
  public function show($item_id)

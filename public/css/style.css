@@ -464,3 +464,78 @@ body {
     cursor: pointer;
     font-size: 16px;
 }
+/*マイページ*/
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    padding: 40px 80px;
+}
+
+.profile img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.profile a {
+    margin-left: auto;
+
+    border: 1px solid red;
+    color: red;
+
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.mypage-tab {
+    display: flex;
+    gap: 40px;
+
+    padding: 20px 80px;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.mypage-tab .active {
+    color: red;
+    font-weight: bold;
+}
+
+.item-list {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 40px;
+
+    padding: 40px 80px;
+}
+
+.item-image {
+    width: 100%;
+    aspect-ratio: 1;
+
+    background: #ddd;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-icon,
+.default-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ddd;
+}
