@@ -55,7 +55,24 @@ class User extends Authenticatable implements MustVerifyEmail
     // 購入した商品
    public function purchases()
     {
+       return $this->hasMany(Purchase::class);
+    }
+    
+    // いいねした商品
+    public function likeItems()
+    {
+       return $this->belongsToMany(Item::class, 'likes')
+        ->withTimestamps();
+    }
+    
+    public function purchasedItems()
+    {
        return $this->belongsToMany(Item::class, 'purchases');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

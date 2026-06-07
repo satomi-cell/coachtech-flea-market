@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\VerifyEmailResponse;
+use Laravel\Fortify\Contracts\LoginResponse;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -27,7 +28,26 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(LoginResponse::class, function () {
+            return new class implements LoginResponse {
+
+              public function toResponse($request)
+              {
+                $user = auth()->user();
+
+                // 初回ログイン判定
+                if (
+                    empty($user->postal_code) ||
+                    empty($user->address)
+                ) {
+                    return redirect('/mypage/profile');
+                }
+
+                // 通常ログイン
+                return redirect('/');
+              }
+            };
+        });
     }
 
     /**

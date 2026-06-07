@@ -161,6 +161,7 @@ textarea {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .name{
@@ -538,4 +539,41 @@ body {
     border-radius: 50%;
     object-fit: cover;
     background-color: #ddd;
+}
+
+/*いいね*/
+.like-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.like-button img {
+    width: 30px;
+}
+
+.like-off img {
+    opacity: 0.3;
+}
+
+/*sold表示*/
+.image{
+    position: relative;
+}
+
+.sold{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    background-color: red;
+    color: white;
+
+    padding: 5px 12px;
+    border-radius: 5px;
+
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 10;
 }

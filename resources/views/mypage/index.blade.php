@@ -66,21 +66,22 @@
       {{-- 購入一覧 --}}
       @else
 
-        @foreach ($buyItems as $purchase)
+        @foreach ($buyItems as $item)
 
-            <div class="item-card">
+
+           <div class="item-card">
 
                 <div class="image">
 
-                    @if ($purchase->item->image)
-                        <img src="{{ $purchase->item->image }}">
+                    @if ($item->image)
+                        <img src="{{ $item->image }}">
                     @else
                         商品画像
                     @endif
 
                 </div>
 
-                <p>{{ $purchase->item->name }}</p>
+                <p>{{ $item->name }}</p>
 
             </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -16,7 +17,7 @@ class ProfileController extends Controller
         $sellItems = $user->items;
 
         // 購入商品
-        $buyItems = $user->purchases;
+        $buyItems = $user->purchasedItems;
 
         return view('mypage.index', compact('user', 'sellItems', 'buyItems'));
     }
@@ -27,17 +28,9 @@ class ProfileController extends Controller
         return view('mypage.profile', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
-        $request->validate([
-            'name' => ['required'],
-            'postal_code' => ['required'],
-            'address' => ['required'],
-            'building' => ['nullable'],
-            'profile_image' => ['nullable', 'image'],
-        ]);
 
         if ($request->hasFile('profile_image')) {
 

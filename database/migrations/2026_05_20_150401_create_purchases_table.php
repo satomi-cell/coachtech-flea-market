@@ -18,7 +18,7 @@ return new class extends Migration
 
             // 購入商品
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
-
+                        
             $table->timestamps();
         });
     }

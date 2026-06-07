@@ -6,8 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-  public function item()
-  {
+  protected $fillable = [
+        'user_id',
+        'item_id',
+        'payment_method',
+        'postal_code',
+        'address',
+        'building',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function item()
+   {
     return $this->belongsTo(Item::class);
-  }  
+   }  
 }

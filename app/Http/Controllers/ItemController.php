@@ -30,9 +30,9 @@ class ItemController extends Controller
         $items = Item::query()
 
             // 自分の商品を除外
-            ->when(Auth::check(), function ($query) {
-                $query->where('user_id', '!=', Auth::id());
-            })
+            //->when(Auth::check(), function ($query) {
+            //    $query->where('user_id', '!=', Auth::id());
+            //})
 
             ->latest()
             ->get();
@@ -43,10 +43,11 @@ class ItemController extends Controller
 
  public function show($item_id)
  {
-    $item = Item::findOrFail($item_id);
+      $item = Item::with(['comments.user'])
+             ->findOrFail($item_id);
 
-    return view('items.show', compact('item'));
-  }
+      return view('items.show', compact('item'));
+ }
 
   public function store(Request $request)
  {

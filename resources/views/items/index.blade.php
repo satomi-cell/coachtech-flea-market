@@ -18,11 +18,13 @@
 
                 <div class="image">
                     
-                    @if ($item->image)
-                    <img src="{{ asset('storage/' . $item->image) }}">
-                    @else
-                        商品画像
-                    @endif
+                @if ($item->image)
+                    <img src="{{ str_starts_with($item->image, 'http')
+                        ? $item->image
+                        : asset('storage/' . $item->image) }}">
+                @else
+                   商品画像
+                @endif    
                    
                     {{-- Sold表示 --}}
                     @if ($item->is_sold)

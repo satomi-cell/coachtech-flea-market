@@ -12,8 +12,10 @@ class Item extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'brand',
         'price',
         'description',
+        'condition',
         'image',
         'is_sold',
     ];
@@ -23,4 +25,32 @@ class Item extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // いいねしたユーザー
+    public function likeUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')
+        ->withTimestamps();
+    }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
+    
+    public function getIsSoldAttribute()
+    {
+        return $this->purchase()->exists();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
 }

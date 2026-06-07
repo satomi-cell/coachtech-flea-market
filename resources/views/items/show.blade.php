@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,7 +7,12 @@
 
         <!-- 左：画像 -->
         <div class="detail-image">
-            <img src="{{ $item->image }}" alt="{{ $item->name }}">
+           <img
+              src="{{ str_starts_with($item->image, 'http')
+                  ? $item->image
+                  : asset('storage/' . $item->image) }}"
+              alt="{{ $item->name }}"
+            >
         </div>
 
         <!-- 右：情報 -->
@@ -17,23 +23,57 @@
 
             <p class="price">¥{{ number_format($item->price) }} (税込)</p>
 
-            <!-- アイコン -->
+<!-- アイコン -->
 
-            <div class="icons">
+<div class="icons">
 
-             <div class="icon-item">
-                  <img src="{{ asset('img/heart_logo.png') }}" alt="いいね">
-                  <span>0</span>
-             </div>
+  <div class="icon-item">
 
-            <div class="icon-item">
-                  <img src="{{ asset('img/comment.png') }}" alt="コメント">
-                  <span>0</span>
-            </div>
+    @auth
+
+        @if(auth()->user()->likeItems->contains($item->id))
+
+            <form action="/item/{{ $item->id }}/like" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="like-button">
+                    <img src="{{ asset('img/heart_red_logo.png') }}" alt="いいね" width="30">
+                </button>
+            </form>
+
+        @else
+
+            <form action="/item/{{ $item->id }}/like" method="POST">
+                @csrf
+
+                <button type="submit" class="like-button like-off">
+                    <img src="{{ asset('img/heart_logo.png') }}" alt="いいね" width="30">
+                </button>
+            </form>
+
+        @endif
+
+    @else
+
+        <img src="{{ asset('img/heart_logo.png') }}" alt="いいね" width="30">
+
+    @endauth
+
+    <span>{{ $item->likeUsers->count() }}</span>
+
+  </div>
+        <div class="icon-item">
+            <img src="{{ asset('img/comment.png') }}" alt="コメント">
+            <span>{{ $item->comments->count() }}</span>
         </div>
+</div>
             
-        <button class="purchase-btn">購入手続きへ</button>
-
+<form action="{{ route('purchase.create', $item) }}" method="GET">
+    <button type="submit" class="purchase-btn">
+        購入手続きへ
+    </button>
+</form>
             <!-- 商品説明 -->
             <h3>商品説明</h3>
             <p>{{ $item->description }}</p>
@@ -44,21 +84,34 @@
             <p>商品の状態：良好</p>
 
             <!-- コメント -->
-            <h3>コメント(0)</h3>
+           <h3>コメント({{ $item->comments->count() }})</h3>
 
-            <div class="comment">
-                <strong>admin</strong>
-                <p>ここにコメントが入ります</p>
-            </div>
+           @foreach($item->comments as $comment)
+               <div class="comment">
+                   <strong>{{ $comment->user->name }}</strong>
+                   <p>{{ $comment->content }}</p>
+               </div>
+           @endforeach
 
-            <!-- コメント入力 -->
-            <h3>商品へのコメント</h3>
-            <textarea rows="4"></textarea>
+           <!-- コメント入力 -->
+           <h3>商品へのコメント</h3>
 
-            <button class="comment-btn">コメントを送信する</button>
+           @auth
+           <form action="{{ route('comments.store', $item) }}" method="POST">
+              @csrf
 
+              <textarea name="content" rows="4">{{ old('content') }}</textarea>
+
+              @error('content')
+                  <p class="error">{{ $message }}</p>
+              @enderror
+
+              <button type="submit" class="comment-btn">
+                  コメントを送信する
+              </button>
+           </form>
+           @endauth
         </div>
     </div>
 </div>
 @endsection
-
