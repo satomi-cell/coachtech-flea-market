@@ -20,19 +20,20 @@ class ItemController extends Controller
             $items = collect();
         
        } else {
-      
-        // 仮（あとで likes 実装時に変更）
-            $items = collect();
+           $items = Auth::user()
+             ->likeItems()
+             ->latest('items.created_at')
+             ->get();
        }
 
     } else {
 
         $items = Item::query()
 
-            // 自分の商品を除外
-            //->when(Auth::check(), function ($query) {
-            //    $query->where('user_id', '!=', Auth::id());
-            //})
+             //自分の商品を除外
+            ->when(Auth::check(), function ($query) {
+                $query->where('user_id', '!=', Auth::id());
+            })
 
             ->latest()
             ->get();
