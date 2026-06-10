@@ -15,6 +15,7 @@ use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\VerifyEmailResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -47,6 +48,16 @@ class FortifyServiceProvider extends ServiceProvider
                 return redirect('/');
               }
             };
+        });
+
+        $this->app->singleton(RegisterResponse::class, function () {
+            return new class implements RegisterResponse {
+
+               public function toResponse($request)
+              {
+                return redirect('/mypage/profile');
+              }
+           };
         });
     }
 

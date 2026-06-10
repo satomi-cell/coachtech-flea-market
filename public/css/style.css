@@ -101,6 +101,21 @@ textarea {
     margin: 10px 0;
 }
 
+.category-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-tag{
+    background-color: #d9d9d9;
+    color: #555;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
 /* アイコン */
 .icons {
     display: flex;
@@ -327,6 +342,40 @@ textarea {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-tag {
+    cursor: pointer;
+}
+
+.category-tag input {
+    display: none;
+}
+
+.category-tag span {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid #ff5555;
+    border-radius: 20px;
+    color: #ff5555;
+    font-size: 12px;
+}
+
+.category-tag input:checked + span {
+    background-color: #ff5555;
+    color: #fff;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 /*プロフィール画面*/

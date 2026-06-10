@@ -18,9 +18,11 @@
         <!-- 右：情報 -->
         <div class="detail-info">
 
-            <h2 class="product-name">{{ $item->name }}</h2>
-            <p class="brand">ブランド名</p>
-
+             <h2 class="product-name">{{ $item->name }}</h2>
+                @if($item->brand && $item->brand !== 'なし')
+                  <p class="brand">{{ $item->brand }}</p>
+                @endif
+    
             <p class="price">¥{{ number_format($item->price) }} (税込)</p>
 
 <!-- アイコン -->
@@ -80,8 +82,16 @@
 
             <!-- 商品情報 -->
             <h3>商品の情報</h3>
-            <p>カテゴリー：未設定</p>
-            <p>商品の状態：良好</p>
+            
+            @if($item->categories->isNotEmpty())
+                <div class="category-tags">
+                      @foreach($item->categories as $category)
+                           <span class="category-tag">{{ $category->name }}</span>
+                      @endforeach
+                </div>
+            @endif
+            
+            <p>商品の状態：{{ $item->condition }}</p>
 
             <!-- コメント -->
            <h3>コメント({{ $item->comments->count() }})</h3>
