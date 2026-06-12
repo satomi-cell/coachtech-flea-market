@@ -6,8 +6,15 @@
 
     <!-- タブ -->
     <div class="tabs">
-        <a href="/" class="{{ $tab !== 'mylist' ? 'active' : '' }}">おすすめ</a>
-        <a href="/?tab=mylist" class="{{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+      <a href="/?keyword={{ request('keyword') }}"
+         class="{{ $tab !== 'mylist' ? 'active' : '' }}">
+         おすすめ
+      </a>
+
+      <a href="/?tab=mylist&keyword={{ request('keyword') }}"
+         class="{{ $tab === 'mylist' ? 'active' : '' }}">
+         マイリスト
+      </a>
     </div>
 
     <!-- 商品一覧 -->

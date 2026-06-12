@@ -11,6 +11,7 @@ class ItemController extends Controller
   public function index(Request $request)
  {
     $tab = $request->query('tab');
+    $keyword = $request->keyword;
 
     if ($tab === 'mylist') {
       
@@ -22,6 +23,9 @@ class ItemController extends Controller
        } else {
            $items = Auth::user()
              ->likeItems()
+             ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            })
              ->latest('items.created_at')
              ->get();
        }
@@ -34,7 +38,10 @@ class ItemController extends Controller
             ->when(Auth::check(), function ($query) {
                 $query->where('user_id', '!=', Auth::id());
             })
-
+            
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            })
             ->latest()
             ->get();
     }

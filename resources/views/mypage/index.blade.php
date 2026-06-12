@@ -49,7 +49,9 @@
                 <div class="image">
 
                     @if ($item->image)
-                        <img src="{{ $item->image }}">
+                        <img src="{{ str_starts_with($item->image, 'http')
+                            ? $item->image
+                            : asset('storage/' . $item->image) }}">
                     @else
                         商品画像
                     @endif
@@ -74,7 +76,9 @@
                 <div class="image">
 
                     @if ($item->image)
-                        <img src="{{ $item->image }}">
+                        <img src="{{ str_starts_with($item->image, 'http')
+                            ? $item->image
+                            : asset('storage/' . $item->image) }}">
                     @else
                         商品画像
                     @endif

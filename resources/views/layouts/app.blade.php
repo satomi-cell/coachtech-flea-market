@@ -23,7 +23,16 @@
 
         <!-- 検索 -->
         <form class="search-form" action="/" method="GET">
-            <input type="text" name="keyword" placeholder="なにをお探しですか？">
+             @if(request('tab'))
+                <input type="hidden" name="tab" value="{{ request('tab') }}">
+             @endif
+             
+            <input 
+                type="text"
+                name="keyword"
+                placeholder="なにをお探しですか？"
+                value="{{ request('keyword') }}"
+            >
         </form>
 
         <!-- ナビ -->
