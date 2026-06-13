@@ -31,38 +31,30 @@
 
   <div class="icon-item">
 
-    @auth
+@if(auth()->check() && auth()->user()->likeItems->contains($item->id))
 
-        @if(auth()->user()->likeItems->contains($item->id))
+    <form action="/item/{{ $item->id }}/like" method="POST">
+        @csrf
+        @method('DELETE')
 
-            <form action="/item/{{ $item->id }}/like" method="POST">
-                @csrf
-                @method('DELETE')
+        <button type="submit" class="like-button">
+            <img src="{{ asset('img/heart_red_logo.png') }}" alt="いいね" width="30">
+        </button>
+    </form>
 
-                <button type="submit" class="like-button">
-                    <img src="{{ asset('img/heart_red_logo.png') }}" alt="いいね" width="30">
-                </button>
-            </form>
+@else
 
-        @else
+    <form action="/item/{{ $item->id }}/like" method="POST">
+        @csrf
 
-            <form action="/item/{{ $item->id }}/like" method="POST">
-                @csrf
+        <button type="submit" class="like-button like-off">
+            <img src="{{ asset('img/heart_logo.png') }}" alt="いいね" width="30">
+        </button>
+    </form>
 
-                <button type="submit" class="like-button like-off">
-                    <img src="{{ asset('img/heart_logo.png') }}" alt="いいね" width="30">
-                </button>
-            </form>
-
-        @endif
-
-    @else
-
-        <img src="{{ asset('img/heart_logo.png') }}" alt="いいね" width="30">
-
-    @endauth
-
-    <span>{{ $item->likeUsers->count() }}</span>
+@endif
+    
+<span>{{ $item->likeUsers->count() }}</span>
 
   </div>
         <div class="icon-item">
@@ -106,7 +98,6 @@
            <!-- コメント入力 -->
            <h3>商品へのコメント</h3>
 
-           @auth
            <form action="{{ route('comments.store', $item) }}" method="POST">
               @csrf
 
@@ -120,7 +111,7 @@
                   コメントを送信する
               </button>
            </form>
-           @endauth
+
         </div>
     </div>
 </div>
