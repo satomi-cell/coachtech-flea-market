@@ -62,7 +62,7 @@ http://localhost:8025
 
 ## ER図
 
-（後で追加）
+![ER図](docs/er-diagram.png)
 
 ---
 
