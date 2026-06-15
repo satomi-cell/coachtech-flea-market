@@ -62,8 +62,9 @@ http://localhost:8025
 
 ## ER図
 
-![ER図](docs/er-diagram.png)
-
+<p align="center">
+  <img src="docs/er-diagram.png" width="800">
+</p>
 ---
 
 ## 環境構築
