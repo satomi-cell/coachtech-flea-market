@@ -13,6 +13,7 @@
 - PHP 8.4.21
 - Laravel 13.2.0
 - MySQL 8.0
+- Laravel Fortify
 - Nginx
 - Docker Compose
 - phpMyAdmin
@@ -65,6 +66,7 @@ http://localhost:8025
 <p align="center">
   <img src="docs/er-diagram.png" width="800">
 </p>
+
 ---
 
 ## 環境構築
@@ -72,7 +74,7 @@ http://localhost:8025
 ### Dockerビルド
 
 ```bash
-git clone git@github.com:ユーザー名/coachtech-flea-market.git
+git clone git@github.com:satomi-cell/coachtech-flea-market.git
 cd coachtech-flea-market
 
 docker compose up -d --build
@@ -88,6 +90,7 @@ cp .env.example .env
 docker compose exec app php artisan key:generate
 
 docker compose exec app php artisan migrate --seed
+※ サンプルデータが投入されます。
 ```
 
 ### シンボリックリンク作成
@@ -95,3 +98,12 @@ docker compose exec app php artisan migrate --seed
 ```bash
 docker compose exec app php artisan storage:link
 ```
+
+## DB設定
+
+| 項目 | 値 |
+|------|------|
+| DB_HOST | mysql |
+| DB_DATABASE | laravel_db |
+| DB_USERNAME | laravel |
+| DB_PASSWORD | laravel |
