@@ -12,7 +12,7 @@ class ItemSeeder extends Seeder
      */
     public function run(): void
  {
-        Item::create([
+    $item = Item::create([
         'user_id' => 1,
         'name' => '腕時計',
         'brand' => 'Rolax',
@@ -20,9 +20,11 @@ class ItemSeeder extends Seeder
         'price' => 15000,
         'description' => 'スタイリッシュなメンズ腕時計',
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
-    ]);
+     ]);
 
-    Item::create([
+    $item->categories()->attach([1, 5]); 
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'HDD',
         'brand' => '西芝',
@@ -32,7 +34,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([2]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => '玉ねぎ3束',
         'brand' => 'なし',
@@ -42,7 +46,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([10]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => '革靴',
         'brand' => null,
@@ -52,7 +58,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([1, 5]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'ノートPC',
         'brand' => null,
@@ -60,9 +68,11 @@ class ItemSeeder extends Seeder
         'price' => 45000,
         'description' => '高性能なノートパソコン',
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
-    ]); 
+    ]);
     
-    Item::create([
+    $item->categories()->attach([2]);
+    
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'マイク',
         'brand' => 'なし',
@@ -72,7 +82,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([2]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'ショルダーバッグ',
         'brand' => null,
@@ -82,7 +94,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([1, 4]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'タンブラー',
         'brand' => 'なし',
@@ -92,7 +106,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([10]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'コーヒーミル',
         'brand' => 'Starbacks',
@@ -102,7 +118,9 @@ class ItemSeeder extends Seeder
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
     ]);
 
-    Item::create([
+    $item->categories()->attach([10]);
+
+    $item = Item::create([
         'user_id' => 1,
         'name' => 'メイクセット',
         'brand' => null,
@@ -111,6 +129,9 @@ class ItemSeeder extends Seeder
         'description' => '便利なメイクアップセット',
         'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
     ]);
+
+    $item->categories()->attach([4, 6]);
+
  }
 }
 
