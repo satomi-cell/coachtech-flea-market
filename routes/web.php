@@ -39,10 +39,6 @@ Route::get('/verify-email', function () {
     return redirect('/mypage/profile');
 })->middleware('auth');
 Route::post('/items', [ItemController::class, 'store']);
-Route::middleware('auth')->group(function () {
-    Route::get('/sell', [ItemController::class, 'create']);
-    Route::post('/sell', [ItemController::class, 'store']);
-});
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
@@ -56,16 +52,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])
         ->name('purchase.create');
-
+    Route::post('/purchase/{item}', [PurchaseController::class, 'store']);
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'address']);
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress']);
     Route::get('/purchase/success/{item}', [PurchaseController::class, 'success'])
         ->name('purchase.success');
 
     Route::get('/purchase/cancel/{item}', [PurchaseController::class, 'cancel'])
         ->name('purchase.cancel');
 });
-Route::post('/purchase/{item}', [PurchaseController::class, 'store']);
-Route::get('/purchase/address/{item}', [PurchaseController::class, 'address']);
-Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress']);
 Route::middleware('auth')->group(function () {
     Route::get('/sell', [ExhibitionController::class, 'create']);
     Route::post('/sell', [ExhibitionController::class, 'store']);
