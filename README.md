@@ -50,13 +50,6 @@
 
 ---
 
-## テストアカウント
-
-メールアドレス: test@example.com
-
-パスワード: password
-
----
 
 ## メール認証について
 
@@ -98,8 +91,10 @@ cp .env.example .env
 docker compose exec app php artisan key:generate
 
 docker compose exec app php artisan migrate --seed
-※ サンプルデータが投入されます。
 ```
+
+※ サンプルデータが投入されます。
+
 
 ### シンボリックリンク作成
 
